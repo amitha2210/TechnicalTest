@@ -39,10 +39,8 @@ export default function AddEdge({
 
     const handleAddNode = useCallback(() => {
         console.log("Handle add node called!", { labelX, labelY, source, target });
-        // Generate a unique node ID
         const newNodeId = `node_${Date.now()}`;
         
-        // Create a new node at the position of the button
         const newNode: Node = {
           id: newNodeId,
           position: { x: labelX - 75, y: labelY - 20 },
@@ -50,16 +48,13 @@ export default function AddEdge({
           type: 'default',
         };
         
-        // Add the new node
         setNodes((nodes) => nodes.concat(newNode));
         
-        // Create two new edges connecting the new node to the source and target nodes
         const newEdges: Edge[] = [
           {id: `edge_${source}-${newNodeId}`, source: source, target: newNodeId, type: 'add-edge'},
           {id: `edge_${newNodeId}-${target}`, source: newNodeId, target: target, type: 'add-edge'}
         ];
         
-        // Remove the original edge and add the new edges
         setEdges((edges) => {
           const filteredEdges = edges.filter((e) => e.id !== id);
           return [...filteredEdges, ...newEdges];
